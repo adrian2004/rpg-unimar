@@ -1,0 +1,72 @@
+CREATE DATABASE rpg;
+
+USE rpg;
+
+CREATE TABLE conta(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(128) NOT NULL,
+    dt_nascimento TIMESTAMP NOT NULL
+);
+
+CREATE TABLE personagem (
+    conta_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nick VARCHAR(20) UNIQUE NOT NULL,
+    clan_id INT,
+    nivel INT NOT NULL
+);
+
+CREATE TABLE equipamentos(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(255) UNIQUE NOT NULL,
+    forca INT NOT NULL,
+    vida INT NOT NULL,
+    inteligencia INT NOT NULL,
+    agilidade INT NOT NULL,
+    ataque INT NOT NULL,
+    defesa INT NOT NULL,
+    tipo INT NOT NULL
+);
+
+CREATE TABLE racas(
+    raca_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(50) UNIQUE NOT NULL,
+    forca_base INT NOT NULL,
+    vida_base INT NOT NULL,
+    inteligencia_base INT NOT NULL,
+    defesa_base INT NOT NULL,
+    agilidade_base INT NOT NULL,
+    ataque_base INT NOT NULL
+);
+
+CREATE TABLE regioes(
+    regiao_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(50) UNIQUE NOT NULL,
+    raca_id INT NOT NULL,
+    FOREIGN KEY (raca_id) REFERENCES racas(raca_id)
+);
+
+CREATE TABLE clans(
+    clan_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
+    nome VARCHAR(255) UNIQUE NOT NULL,
+    nivel INT NOT NULL,
+    descricao VARCHAR(255),
+    regiao_id INT NOT NULL,
+    FOREIGN KEY (regiao_id) REFERENCES regioes(regiao_id)
+);
+
+CREATE TABLE cargos_clan(
+    cargo_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(20) UNIQUE NOT NULL
+);
+
+CREATE TABLE membros_clan(
+    membros_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    conta_id INT NOT NULL,
+    FOREIGN KEY (conta_id) REFERENCES personagem(conta_id),
+    cargo_id INT NOT NULL,
+    FOREIGN KEY (cargo_id) REFERENCES cargos_clan(cargo_id),
+    clan_id INT NOT NULL,
+    FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
+);
