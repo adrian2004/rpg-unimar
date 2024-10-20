@@ -70,3 +70,13 @@ CREATE TABLE membros_clan(
     clan_id INT NOT NULL,
     FOREIGN KEY (clan_id) REFERENCES clans(clan_id)
 );
+
+INSERT INTO `conta`(`id`, `nome`, `email`, `senha`, `dt_nascimento`) VALUES (1,'Adrian','adrian@email.com','abcde12345',12-03-2004);
+
+INSERT INTO `personagem`(`conta_id`, `nick`, `clan_id`, `nivel`) VALUES (1,'jaquier2004',1,50);
+
+INSERT INTO `equipamentos`(`id`, `nome`, `forca`, `vida`, `inteligencia`, `agilidade`, `ataque`, `defesa`, `tipo`) VALUES (1,'Espada de Titanio',250,0,0,100,150,50,1);
+
+INSERT INTO `racas`(`raca_id`, `nome`, `forca_base`, `vida_base`, `inteligencia_base`, `defesa_base`, `agilidade_base`, `ataque_base`) VALUES (1,'Barbaro',300,500,50,250,100,300);
+
+INSERT INTO `cargos_clan`(`cargo_id`, `nome`) VALUES (1,'Lider');
